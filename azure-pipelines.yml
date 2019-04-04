@@ -8,6 +8,9 @@ trigger:
 
 pool:
   vmImage: 'Ubuntu-16.04'
+  
+variables:
+  azureSubscription: RMPM  
 
 steps:
 - task: Maven@3
@@ -24,7 +27,7 @@ steps:
 - task: CopyFiles@2
   displayName: Copy Files
   inputs:
-    SourceFolder: '$(system.defaultworkingdirectory)'
+    SourceFolder: $(system.defaultworkingdirectory)/target/azure-functions/
     Contents: '**'
     TargetFolder: $(build.artifactstagingdirectory)   
 
@@ -32,3 +35,11 @@ steps:
   displayName: Publish Artifact
   inputs:
     PathtoPublish: $(build.artifactstagingdirectory)
+    
+ - task: AzureFunctionApp@1
+  displayName: Azure Function App deploy
+  inputs:
+    azureSubscription: $(azureSubscription)
+    appType: functionApp
+    appName: javafapp
+    package: $(build.artifactstagingdirectory)/**/*.jar
