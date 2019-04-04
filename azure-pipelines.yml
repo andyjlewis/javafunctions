@@ -36,10 +36,10 @@ steps:
   inputs:
     PathtoPublish: $(build.artifactstagingdirectory)
     
- - task: AzureFunctionApp@1
+- task: AzureFunctionApp@1
   displayName: Azure Function App deploy
   inputs:
     azureSubscription: $(azureSubscription)
     appType: functionApp
     appName: javafapp
-    package: $(build.artifactstagingdirectory)/**/*.jar
+    package: $(build.artifactstagingdirectory)/azure-functions/javafunctions
