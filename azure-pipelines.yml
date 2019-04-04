@@ -42,4 +42,4 @@ steps:
     azureSubscription: $(azureSubscription)
     appType: functionApp
     appName: javafapp
-    package: $(build.artifactstagingdirectory)/azure-functions/javafunctions
+    package: $(build.artifactstagingdirectory)/javafunctions
